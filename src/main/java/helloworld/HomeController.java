@@ -1,14 +1,5 @@
 package helloworld;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.app.ApplicationInstanceInfo;
@@ -20,6 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.sql.DataSource;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -82,10 +81,10 @@ public class HomeController {
         } else {
             if (redisConnectionFactory instanceof JedisConnectionFactory) {
                 JedisConnectionFactory jcf = (JedisConnectionFactory) redisConnectionFactory;
-                return jcf.getHostName().toString() + ":" + jcf.getPort();
+                return jcf.getHostName() + ":" + jcf.getPort();
             } else if (redisConnectionFactory instanceof LettuceConnectionFactory) {
                 LettuceConnectionFactory lcf = (LettuceConnectionFactory) redisConnectionFactory;
-                return lcf.getHostName().toString() + ":" + lcf.getPort();
+                return lcf.getHostName() + ":" + lcf.getPort();
             }
             return "<unknown> " + redisConnectionFactory.getClass();
         }
